@@ -7,7 +7,7 @@ def create_tables():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS mistakes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user TEXT,
+        user_id TEXT,  -- Changed from "user" to "user_id"
         mistake TEXT,
         correction TEXT
     )
@@ -15,3 +15,6 @@ def create_tables():
     
     conn.commit()
     conn.close()
+
+
+

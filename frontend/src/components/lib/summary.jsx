@@ -13,12 +13,15 @@ export default function Summary() {
     axios
       .get(`${API_URL}/summary/user123`)
       .then((response) => {
-        setSummary(response.data.mistakes || []); // Expecting an array of mistakes from API
+        console.log("API Response:", response.data);  // Debugging
+        setSummary(response.data.mistakes || []);
       })
       .catch(() => {
-        setSummary(["Error fetching summary"]);
+        setSummary([{ wrong_word: "Error fetching summary", correction: "" }]);
       });
   }, []);
+  
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-6">
@@ -26,14 +29,16 @@ export default function Summary() {
 
       <div className="bg-gray-800 p-4 rounded-lg shadow-lg max-w-lg w-full">
         {summary.length > 0 ? (
-          <ul className="space-y-2">
-            {summary.map((item, index) => (
-              <li key={index} className="bg-gray-700 p-2 rounded-lg shadow">
-                <p className="text-red-400">❌ Mistake: {item.mistake}</p>
-                <p className="text-green-400">✅ Correction: {item.correction}</p>
-              </li>
-            ))}
-          </ul>
+        <ul className="space-y-2">
+        {summary.map((item, index) => (
+          <li key={index} className="bg-gray-700 p-2 rounded-lg shadow">
+            <p className="text-red-400">❌ Mistake: {item.wrong_word}</p>
+            <p className="text-green-400">✅ Correction: {item.correction}</p>
+          </li>
+        ))}
+      </ul>
+      
+       
         ) : (
           <p>No mistakes recorded. Great job! 🎉</p>
         )}

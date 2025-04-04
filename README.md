@@ -1,5 +1,6 @@
 language tutor for any language and see mistakes  <br>
 backend created by fast api and postgres <br>
+sqlalchemy for ORM
 frontend by react <br>
 need api of huggigface <br>
 need postgesql neon db url connection

@@ -1,0 +1,42 @@
+# Ignore Python bytecode and cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+
+# Virtual environment
+venv/
+env/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Environment variables & configuration files
+.env
+*.env
+.env.local
+.env.production
+.env.development
+secrets.json
+
+# Ignore database configuration (if credentials are hardcoded)
+alembic.ini
+
+# Ignore alembic migration cache
+alembic/versions/__pycache__/
+
+# Ignore logs and temp files
+*.log
+logs/
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.pid
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db

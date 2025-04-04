@@ -1,0 +1,13 @@
+langchain
+langchain_community
+langchain_huggingface
+langchain_core
+huggingface_hub
+fastapi
+uvicorn
+sqlalchemay
+pydantic
+psycopg2
+transformers
+asyncpg
+

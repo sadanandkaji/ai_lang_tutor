@@ -7,7 +7,7 @@ def create_tables():
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS mistakes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id TEXT,  -- Changed from "user" to "user_id"
+        user_id TEXT,
         mistake TEXT,
         correction TEXT
     )

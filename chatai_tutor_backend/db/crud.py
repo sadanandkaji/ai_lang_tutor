@@ -2,11 +2,9 @@
 from db.database import get_db_connection
 
 def save_mistake(user_id: str, mistake: str, correction: str):
-    """Save a user's mistake and its correction to the database."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO mistakes (user_id, mistake, correction) VALUES (?, ?, ?)", 
-                   (user_id, mistake, correction))
+    cursor.execute("INSERT INTO mistakes (user_id, mistake, correction) VALUES (?, ?, ?)",(user_id, mistake, correction))
     conn.commit()
     conn.close()
 

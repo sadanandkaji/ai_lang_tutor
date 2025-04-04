@@ -6,6 +6,8 @@ from db.models import create_tables
 from db.crud import save_mistake, get_mistakes
 from fastapi.middleware.cors import CORSMiddleware
 import difflib
+from dotenv import load_dotenv
+
 
 
 app = FastAPI()
@@ -19,6 +21,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Load environment variables manually
+load_dotenv()
 
 api_key = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 if not api_key:
@@ -62,9 +66,9 @@ def find_incorrect_words(original: str, corrected: str):
 
 @app.post("/chat")
 def chat_with_bot(request: ChatRequest):
-    """Processes user input, corrects mistakes, and saves incorrect words."""
+   
     
-    # Adjust correction based on proficiency level
+   
     proficiency_instruction = {
         "basic": "Use simple language and explain the corrections.",
         "intermediate": "Provide corrections with brief explanations.",
@@ -146,3 +150,4 @@ def get_review(user_id: str):
         "focus_areas": focus_areas,
     }
     
+

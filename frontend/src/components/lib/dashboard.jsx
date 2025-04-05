@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [knownLang, setKnownLang] = useState("");
   const [targetLang, setTargetLang] = useState("");
   const [proficiency, setProficiency] = useState("");
-  const [setupStep, setSetupStep] = useState(0); // 0: ask knownLang, 1: ask targetLang, 2: ask proficiency, 3: chat
+  const [setupStep, setSetupStep] = useState(0); 
   const [isLoading, setIsLoading] = useState(false);
   const requestRef = useRef(false);
   const navigate = useNavigate();
@@ -54,17 +54,14 @@ export default function Dashboard() {
     const trimmedMessage = message.trim();
     if (!trimmedMessage) return;
 
-    // Add user message immediately
     setChatHistory((prev) => [...prev, { type: "user", text: trimmedMessage }]);
     setMessage("");
 
-    // Setup stage
     if (setupStep < 3) {
       handleSetup(trimmedMessage);
       return;
     }
 
-    // Real chat stage
     requestRef.current = true;
     setIsLoading(true);
 

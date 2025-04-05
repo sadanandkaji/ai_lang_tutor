@@ -68,8 +68,6 @@ prompt = PromptTemplate(
     template=template,
 )
 
-from langchain_core.runnables import RunnableSequence
-from langchain_core.prompts import PromptTemplate
 
 chain = prompt | llm
 

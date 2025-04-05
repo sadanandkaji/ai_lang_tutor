@@ -28,7 +28,6 @@ export default function Dashboard() {
       setKnownLang(input);
       setChatHistory((prev) => [
         ...prev,
-        { type: "user", text: input },
         { type: "bot", text: "Great! Which language do you want to learn?" },
       ]);
       setSetupStep(1);
@@ -36,7 +35,6 @@ export default function Dashboard() {
       setTargetLang(input);
       setChatHistory((prev) => [
         ...prev,
-        { type: "user", text: input },
         { type: "bot", text: "Awesome! What is your proficiency level? (Basic / Intermediate / Expert)" },
       ]);
       setSetupStep(2);
@@ -44,8 +42,7 @@ export default function Dashboard() {
       setProficiency(input);
       setChatHistory((prev) => [
         ...prev,
-        { type: "user", text: input },
-        { type: "bot", text: `You're all set to start chatting in ${targetLang}! 🎉` },
+        { type: "bot", text: `You're all set to start chatting in ${input}! 🎉` },
       ]);
       setSetupStep(3);
     }
@@ -55,8 +52,11 @@ export default function Dashboard() {
     if (!message || isLoading || requestRef.current) return;
 
     const trimmedMessage = message.trim();
+    if (!trimmedMessage) return;
+
+    // Add user message immediately
+    setChatHistory((prev) => [...prev, { type: "user", text: trimmedMessage }]);
     setMessage("");
-    
 
     // Setup stage
     if (setupStep < 3) {
@@ -119,6 +119,7 @@ export default function Dashboard() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Type your message..."
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           />
           <Button
             onClick={sendMessage}
@@ -128,20 +129,16 @@ export default function Dashboard() {
             {isLoading ? "..a sec" : "Send"}
           </Button>
         </div>
-
-    
-      
       </div>
-     
-  <div className="flex justify-between mt-4 w-full max-w-lg">
-    <Button onClick={() => navigate("/review")} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded w-full mr-2">
-      View Mistake Review
-    </Button>
-    <Button onClick={() => navigate("/summary")} className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded w-full ml-2">
-      View Summary
-    </Button>
-  </div>
 
+      <div className="flex justify-between mt-4 w-full max-w-lg">
+        <Button onClick={() => navigate("/review")} className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded w-full mr-2">
+          View Mistake Review
+        </Button>
+        <Button onClick={() => navigate("/summary")} className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded w-full ml-2">
+          View Summary
+        </Button>
+      </div>
     </div>
   );
 }

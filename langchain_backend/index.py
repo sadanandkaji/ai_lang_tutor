@@ -46,14 +46,18 @@ def find_incorrect_words(original: str, corrected: str):
     original_words = original.split()
     corrected_words = corrected.split()
     incorrect_words = []
+    # print(incorrect_words)
 
     matcher = difflib.SequenceMatcher(None, original_words, corrected_words)
+    print("matcher:",matcher.get_opcodes())
     for opcode, i1, i2, j1, j2 in matcher.get_opcodes():
         if opcode in ("replace", "delete"):
             wrong_word = " ".join(original_words[i1:i2])
             correct_word = " ".join(corrected_words[j1:j2]) if j1 < len(corrected_words) else ""
             if wrong_word != correct_word:
                 incorrect_words.append((wrong_word, correct_word))
+        # print(opcode,i1,i2,j1,j2,matcher)
+        # print(incorrect_words,wrong_word,correct_word)
     return incorrect_words
 
 template = """You are an expert {target_lang} tutor. 
@@ -86,10 +90,12 @@ async def chat_with_bot(request: ChatRequest, db: Session = Depends(get_db)):
     "proficiency_instruction": proficiency_instruction,
     "message": request.message
     }).strip()
-
+    print("response--------:",response,"-----------")
 
     correction_text = response.split("Correction:")[-1].strip() if "Correction:" in response else response.strip()
+    print("correction_text----:",correction_text,"------------")
     incorrect_words = find_incorrect_words(request.message, correction_text)
+    print("incoreectword--------",incorrect_words,"-----------")
 
     if incorrect_words:
         for wrong_word, correct_word in incorrect_words:

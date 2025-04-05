@@ -6,7 +6,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 DATABASE_URL=os.getenv("DATABASE_URL")
-# DATABASE_URL = "postgresql+asyncpg://neondb_owner:npg_Beg7HJjkEt3O@ep-proud-voice-a5rwrhf1-pooler.us-east-2.aws.neon.tech/neondb"
 ssl_context = ssl.create_default_context()
 ssl_context.check_hostname = False
 ssl_context.verify_mode = ssl.CERT_NONE  
